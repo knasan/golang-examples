@@ -1,0 +1,8 @@
+---
+hierarchy:
+  - name: "first"
+    path: "this is the first path"
+  - name: "second"
+    path: "this is the second path"
+  - name: "three"
+    path: "this is the three path"
