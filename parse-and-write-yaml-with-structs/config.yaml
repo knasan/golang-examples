@@ -1,0 +1,53 @@
+---
+destination: '/mnt'
+maxworker: 4
+default:
+  minSpaceLeft: "90%"
+  maxSnapshots: 20
+  rsyncOptions:
+    - '--archive'
+    - '--verbose'
+    - '--one-file-system'
+    - '--human-readable'
+    - '--hard-links'
+    - '--numeric-ids'
+  continueOnError: true
+plugins:
+  system: &system
+    include: /
+    exclude:
+      - '/proc/'
+      - '/sys'
+      - '/dev'
+      - '/var/log/*.gz'
+      - '/var/log/*.old'
+      - '/var/log/*.[0-9]'
+      - '/var/log/**/*.gz'
+      - '/var/log/**/*.old'
+      - '/var/log/**/*.[0-9]'
+      - '/var/lib/mlocate/mlocate.db'
+    afterCommands:
+      001:
+        name: 'filenameAfterCommand'
+        content:
+          - 'afterLineOne'
+        continueOnError: true
+  lxc: &lxc
+    include: /
+    exclude:
+      - '/var/lib/lxc/'
+      - '/var/lib/lxc.data/'
+hosts:
+  server1:
+    address: server1
+    port: 1234
+    plugins:
+      system:
+        <<: *system
+  server2:
+    address: server2
+    port: 12345
+    plugins:
+      lxc:
+        <<: *lxc
+        include: /var/lib
