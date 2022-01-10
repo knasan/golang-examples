@@ -1,0 +1,46 @@
+---
+doe: "a deer, a female deer"
+ray: "a drop of golden sun"
+pi: 3.14159
+xmas: true
+french-hens: 3
+calling-birds:
+  - huey
+  - dewey
+  - louie
+  - fred
+xmas-fifth-day:
+  calling-birds: four
+  french-hens: 3
+  golden-rings: 5
+  partridges:
+    count: 1
+    location: "a pear tree"
+  turtle-doves: two
+plugins:
+  system: &system
+    include: /
+    exclude:
+      - '/proc/'
+      - '/sys'
+      - '/dev'
+      - '/var/log/*.gz'
+      - '/var/log/*.old'
+      - '/var/log/*.[0-9]'
+      - '/var/log/**/*.gz'
+      - '/var/log/**/*.old'
+      - '/var/log/**/*.[0-9]'
+      - '/var/lib/mlocate/mlocate.db'
+    afterCommands:
+      001:
+        name: 'filenameAfterCommand'
+        content:
+          - 'afterLineOne'
+        continueOnError: true
+hosts:
+  srv1:
+    address: 10.1.0.19
+    port: 2222
+    plugins:
+      system:
+        <<: *system
