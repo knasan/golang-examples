@@ -1,0 +1,53 @@
+---
+maxWorker: 5
+destination: '/mountpoint'
+rsyncOptions:
+  options:
+    - '--verbose'
+    - '--archive'
+    - '--hard-links'
+    - '--acls'
+  continueOnError: false
+  ignoreStatusCodes:
+    - 24
+plugins:
+  system: &system
+    include: /
+    exclude:
+      - '/proc/'
+      - '/sys/'
+      - '/dev/'
+    beforeCommands:
+      "001":
+         file: '/remoteplugin.sh'
+    afterCommands:
+       "001":
+         file: '/afterPlugin.sh'
+hosts:
+  server1:
+    address: server1
+    port: 22
+    rsyncd: true
+    plugins:
+      system:
+        <<: *system
+  server2:
+    address: server1
+    port: 22
+    rsyncd: true
+    data: 
+       - /datadir_for_server2
+    plugins:
+      system:
+        <<: *system
+devices:
+  - label: bk1
+    fstype: ext4
+    encrypt: true
+    minSpaceLeft: 50%
+    maxSnapshots: -1
+  - label: bk2
+    fstype: ext4
+    encrypt: true
+    minSpaceLeft: 50%
+    maxSnapshots: -1

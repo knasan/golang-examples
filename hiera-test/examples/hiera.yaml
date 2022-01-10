@@ -1,0 +1,15 @@
+---
+version: 5
+defaults:
+  datadir: .
+  data_hash: yaml_data
+
+hierarchy:
+  - name: "Custom-specific overrides"
+    path: "custom.yaml"
+  - name: "Puppet-specific overrides"
+    path: "puppet.yaml"
+  - name: "Application generated"
+    path: "application.yaml"
+  - name: "Lookup-options overrides"
+    path: "options.yaml"

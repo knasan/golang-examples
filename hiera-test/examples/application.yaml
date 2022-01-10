@@ -1,0 +1,13 @@
+destination: "/mnt/application"
+maxWorker: 0
+hosts: {}
+devices:
+  - label: deviceLabel
+    fstype: ext4
+    encrypt: false
+    minSpaceLeft: 50%
+    maxSnapshots: 20
+rsyncOptions:
+    options: []
+    ContinueOnError: false
+    ignore_status_codes: []

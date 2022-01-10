@@ -1,0 +1,80 @@
+---
+maxWorker: 4
+destination: "/mnt/"
+rsyncOptions:
+  options:
+    - '--verbose'
+    - '--archive'
+    - '--hard-links'
+    - '--acls'
+    - '--xattrs'
+    - '--owner'
+    - '--group'
+    - '--super'
+    - '--sparse'
+    - '--one-file-system'
+    - '--human-readable'
+    - '--numeric-ids'
+  ignoreStatusCodes:
+    - 24
+  continueOnError: true
+plugins:
+  psql: &psql
+    include: /tmp/postgres
+    commands:
+      before:
+        - file: /root/plugins/bk-pgsql
+          args:
+            - '-d /tmp/output/postgres'
+  mysql: &mysql
+    include: /var/lib/mysql/
+    commands:
+      before:
+        - file: /root/plugins/bk-mariadb-mysql
+          args:
+            - '-d /tmp/output/mysql/'
+  system: &system
+    include: /
+    exclude:
+      - '/var/lib/lxc/'
+      - '/proc/'
+      - '/sys/'
+      - '/dev/'
+hosts:
+  server1:
+    address: server1
+    port: 22
+    rsyncd: true
+    plugins:
+      system:
+        <<: *system
+  server2:
+    address: server2
+    port: 22
+    rsyncd: true
+    plugins:
+      system:
+        <<: *system
+  server4:
+    address: server4
+    port: 22
+    rsyncd: true
+    plugins:
+      db:
+        <<: *psql
+  server5:
+    address: server5
+    port: 22
+    rsyncd: true
+    plugins:
+      mariadb:
+        <<: *mysql
+        include: /var/lib/backup/mariadb
+  server6:
+    address: server6
+    port: 22
+    rsyncd: true
+    plugins:
+      mysql:
+        <<: *mysql
+        include: /var/lib/backup/mysql

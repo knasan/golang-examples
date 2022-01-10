@@ -1,0 +1,8 @@
+---
+lookup_options:
+  hosts:
+    merge: first
+  rsyncOptions:
+    merge: first
+  plugins:
+    merge: deep
