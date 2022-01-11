@@ -1,0 +1,27 @@
+{
+   "blockdevices": [
+      {"fstype": null, "name": "/dev/sdb", "label": null, "size": "5.9T", "mountpoint": null,
+         "children": [
+            {"fstype": "ext4", "name": "/dev/sdb1", "label": "bk1", "size": "5.9T", "mountpoint": null}
+         ]
+      },
+      {"fstype": null, "name": "/dev/sdc", "label": null, "size": "1000G", "mountpoint": null,
+         "children": [
+            {"fstype": "crypto_LUKS", "name": "/dev/sdc1", "label": null, "size": "1000G", "mountpoint": null,
+               "children": [
+                  {"fstype": "ext4", "name": "/dev/mapper/bk2_backup", "label": "bk2", "size": "1000G", "mountpoint": "/mnt/bk2"}
+               ]
+            }
+         ]
+      },
+      {"fstype": null, "name": "/dev/sda", "label": null, "size": "200G", "mountpoint": null,
+         "children": [
+            {"fstype": "ext3", "name": "/dev/sda4", "label": "system", "size": "175.8G", "mountpoint": "/"},
+            {"fstype": "ext3", "name": "/dev/sda2", "label": "boot", "size": "8G", "mountpoint": "/boot"},
+            {"fstype": "swap", "name": "/dev/sda3", "label": "swap", "size": "16G", "mountpoint": "[SWAP]"},
+            {"fstype": "vfat", "name": "/dev/sda1", "label": "efi", "size": "260M", "mountpoint": "/boot/efi"}
+         ]
+      }
+   ]
+}
+
