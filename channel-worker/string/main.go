@@ -13,6 +13,7 @@ func main() {
 	wg := &sync.WaitGroup{}
 	ch := make(chan string, jobs)
 
+	// start worker
 	for i := 1; i <= maxWorker; i++ {
 		wg.Add(1)
 		go func() {
@@ -24,6 +25,7 @@ func main() {
 		}()
 	}
 
+	// Insert Jobs
 	for i := 0; i <= jobs; i++ {
 		ch <- fmt.Sprintf("Job %d", i)
 	}
