@@ -7,33 +7,35 @@ import (
 )
 
 func main() {
-	// maxWorker := 5
+	maxWorker := 2
 	jobs := 10
-	ch := make(chan string, jobs)
-	wg := &sync.WaitGroup{}
 
-	for i := 1; i <= jobs; i++ {
+	wg := &sync.WaitGroup{}
+	ch := make(chan string, jobs)
+
+	for i := 1; i <= maxWorker; i++ {
+		wg.Add(1)
+		go func() {
+			defer wg.Done()
+			for range ch {
+				routine1(ch, wg)
+			}
+
+		}()
+	}
+
+	for i := 0; i <= jobs; i++ {
 		ch <- fmt.Sprintf("Job %d", i)
 	}
 	close(ch)
 
-	// missing jobs 1,3,5,7,9 ?
-	for range ch {
-		wg.Add(1)
-		fmt.Printf("start job: %v\n", <-ch)
-		go routine1(ch, wg)
-	}
 	wg.Wait()
 
 }
 
-// TODO: get information from channel
 func routine1(ch chan string, wg *sync.WaitGroup) {
-	defer wg.Done()
-	fmt.Println("routine1 wait 10 seconds")
-	time.Sleep(10 * time.Second)
-	fmt.Printf("Channel %s\n", <-ch)
-	fmt.Printf("%#v\n", ch)
 	c := <-ch
-	fmt.Println(c)
+	fmt.Printf("routine1 for %s wait 10 seconds\n", c)
+	time.Sleep(10 * time.Second)
+	fmt.Println("Channel", c)
 }
