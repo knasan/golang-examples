@@ -25,7 +25,7 @@ func main() {
 		go func() {
 			defer wg.Done()
 			for range ch {
-				routine1(ch, wg)
+				routine1(ch)
 			}
 
 		}()
@@ -45,7 +45,7 @@ func main() {
 
 }
 
-func routine1(ch chan Message, wg *sync.WaitGroup) {
+func routine1(ch chan Message) {
 	c := <-ch
 	fmt.Printf("routine1 for %s wait 10 seconds\n", c)
 	time.Sleep(10 * time.Second)
