@@ -24,8 +24,8 @@ func main() {
 		wg.Add(1)
 		go func() {
 			defer wg.Done()
-			for range ch {
-				routine1(ch)
+			for c := range ch {
+				routine1(c)
 			}
 
 		}()
@@ -45,10 +45,9 @@ func main() {
 
 }
 
-func routine1(ch chan Message) {
-	c := <-ch
+func routine1(c Message) {
 	fmt.Printf("routine1 for %s wait 10 seconds\n", c)
-	time.Sleep(10 * time.Second)
+	time.Sleep(1 * time.Second)
 	fmt.Println("Message1: ", c.Text)
 	fmt.Println("Message2:", c.Text2)
 	fmt.Println("Message3:", c.Text3)
