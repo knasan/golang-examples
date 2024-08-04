@@ -1,6 +1,6 @@
 module github.com/knasan/golang-examples/spinner-test
 
-go 1.17
+go 1.22.5
 
 require github.com/theckman/yacspin v0.13.12
 

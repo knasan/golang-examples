@@ -1,6 +1,6 @@
 module github.com/knasan/golang-examples/disk-info
 
-go 1.17
+go 1.22.5
 
 require github.com/jaypipes/ghw v0.8.0
 

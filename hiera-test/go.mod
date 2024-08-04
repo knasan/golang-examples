@@ -1,6 +1,6 @@
 module github.com/knasan/golang-examples/hiera-test
 
-go 1.17
+go 1.22.5
 
 require (
 	github.com/knasan/structs v1.1.0

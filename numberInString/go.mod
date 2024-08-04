@@ -1,3 +1,3 @@
 module github.com/knasan/golang-examples/numberInString
 
-go 1.17
+go 1.22.5

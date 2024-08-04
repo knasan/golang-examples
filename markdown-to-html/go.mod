@@ -1,6 +1,6 @@
 module github.com/knasan/golang-examples/markdown-to-html
 
-go 1.17
+go 1.22.5
 
 require (
 	github.com/PuerkitoBio/goquery v1.8.0
